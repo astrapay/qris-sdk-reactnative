@@ -1,6 +1,6 @@
 {
   "name": "qris-sdk-reactnative",
-  "version": "0.1.0",
+  "version": "0.1.1-beta.0",
   "description": "Framework for using qris astrapay",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
