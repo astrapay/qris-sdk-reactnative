@@ -20,3 +20,7 @@ const AstrapayQrisReactNative = NativeModules.AstrapayQrisReactNative
 export function multiply(a: number, b: number): Promise<number> {
   return AstrapayQrisReactNative.multiply(a, b);
 }
+
+export function executeQris() {
+  return AstrapayQrisReactNative.executeQris();
+}
