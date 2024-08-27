@@ -1,11 +1,14 @@
 PODS:
-  - astrapay-qris (0.1.13):
-    - lottie-ios
-    - SnapKit
+  - astrapay-qris (0.3.8)
   - astrapay-qris-react-native (1.0.2):
-    - astrapay-qris (= 0.1.13)
+    - astrapay-qris (= 0.3.8)
     - DoubleConversion
     - glog
+    - MoEngage-iOS-SDK (~> 9.16.2)
+    - MoEngageGeofence (~> 5.15.0)
+    - MoEngageInApp (~> 4.15.0)
+    - MoEngageInbox (~> 2.15.0)
+    - MoEngageRichNotification (~> 7.15.0)
     - RCT-Folly (= 2024.01.01.00)
     - RCTRequired
     - RCTTypeSafety
@@ -29,7 +32,16 @@ PODS:
   - FBLazyVector (0.74.4)
   - fmt (9.1.0)
   - glog (0.3.5)
-  - lottie-ios (4.5.0)
+  - MoEngage-iOS-SDK (9.16.2)
+  - MoEngageGeofence (5.15.0):
+    - MoEngage-iOS-SDK (< 9.17.0, >= 9.16.0)
+  - MoEngageInApp (4.15.0):
+    - MoEngage-iOS-SDK (< 9.17.0, >= 9.16.0)
+  - MoEngageInbox (2.15.1):
+    - MoEngage-iOS-SDK (< 9.17.0, >= 9.16.0)
+    - MoEngageRichNotification (< 7.16.0, >= 7.15.0)
+  - MoEngageRichNotification (7.15.0):
+    - MoEngage-iOS-SDK (< 9.17.0, >= 9.16.0)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1171,7 +1183,6 @@ PODS:
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
-  - SnapKit (5.7.1)
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1238,8 +1249,11 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - astrapay-qris
-    - lottie-ios
-    - SnapKit
+    - MoEngage-iOS-SDK
+    - MoEngageGeofence
+    - MoEngageInApp
+    - MoEngageInbox
+    - MoEngageRichNotification
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1357,14 +1371,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  astrapay-qris: cc8131cdcd3f0625257dbfba95b78df9d2a1939f
-  astrapay-qris-react-native: ac550cb9459cc182ea84795117c81db5032662de
+  astrapay-qris: 0e7a2e50d7c445f277e0ab88f377ce72bc61d816
+  astrapay-qris-react-native: 37d829007b459e66f9f7c848052fbda908a306d7
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 4c674c2d53de79c145d6a723910543d7b57ed74c
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
-  lottie-ios: a881093fab623c467d3bce374367755c272bdd59
+  MoEngage-iOS-SDK: ea23c93daa4206b2bc85145f21891ec44ad2def6
+  MoEngageGeofence: e24388f7f92e530542c0937f55fbf4284fc7a8cd
+  MoEngageInApp: 6e53fdb8ee1cf153a8d4c27f3c1d4597f9b1b01b
+  MoEngageInbox: 836c7d3106993194eb6108f05c0b446e9325378b
+  MoEngageRichNotification: bf262b0f72c69a584321241f1fcfca8ac9abb9c1
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: d83da85890d5bb18efd2809a733865c1c5c11487
   RCTRequired: e109419eacfb10fbb79a3ecb57ebcad198593d8a
@@ -1414,7 +1432,6 @@ SPEC CHECKSUMS:
   ReactNativeHost: 4983b4bfdef9f1a67f523b633909df57a9c1dae9
   ReactTestApp-DevSupport: f781365c3ae6377dcfa2affe319ae66e0fb20777
   ReactTestApp-Resources: 857244f3a23f2b3157b364fa06cf3e8866deff9c
-  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 6259f968a4fdf516d76a4432dead624d71aa0fb1
 
