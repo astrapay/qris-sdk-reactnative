@@ -1,7 +1,9 @@
 PODS:
-  - astrapay-qris (0.3.9)
-  - astrapay-qris-react-native (1.0.2):
-    - astrapay-qris (= 0.3.9)
+  - Alamofire (5.9.1)
+  - astrapay-qris (0.4.2)
+  - astrapay-qris-react-native (1.0.3):
+    - Alamofire
+    - astrapay-qris (= 0.4.2)
     - DoubleConversion
     - glog
     - MoEngage-iOS-SDK (~> 9.16.2)
@@ -1490,7 +1492,7 @@ PODS:
     - React-logger (= 0.75.2)
     - React-perflogger (= 0.75.2)
     - React-utils (= 0.75.2)
-  - ReactNativeHost (0.4.11):
+  - ReactNativeHost (0.4.12):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1512,7 +1514,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ReactTestApp-DevSupport (3.9.0):
+  - ReactTestApp-DevSupport (3.9.7):
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
@@ -1589,6 +1591,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - astrapay-qris
     - MoEngage-iOS-SDK
     - MoEngageGeofence
@@ -1728,19 +1731,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  astrapay-qris: 5f49fcc9ab1cd7faf47429f7d29ff3fed85b3a10
-  astrapay-qris-react-native: 928fd4707fa2d94210f0c91b012ab22b737d93de
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  astrapay-qris: 156034e68fd29b436d94a35756604b736816fa65
+  astrapay-qris-react-native: 9177c88d41fc250cd4ad92b2d0c1bcffbaefe80b
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 38bb611218305c3bc61803e287b8a81c6f63b619
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
-  glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
+  glog: 69ef571f3de08433d766d614c73a9838a06bf7eb
   MoEngage-iOS-SDK: ea23c93daa4206b2bc85145f21891ec44ad2def6
   MoEngageGeofence: e24388f7f92e530542c0937f55fbf4284fc7a8cd
   MoEngageInApp: 6e53fdb8ee1cf153a8d4c27f3c1d4597f9b1b01b
   MoEngageInbox: 836c7d3106993194eb6108f05c0b446e9325378b
   MoEngageRichNotification: bf262b0f72c69a584321241f1fcfca8ac9abb9c1
-  RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
+  RCT-Folly: 4464f4d875961fce86008d45f4ecf6cef6de0740
   RCTDeprecation: 34cbf122b623037ea9facad2e92e53434c5c7422
   RCTRequired: 24c446d7bcd0f517d516b6265d8df04dc3eb1219
   RCTTypeSafety: ef5e91bd791abd3a99b2c75fd565791102a66352
@@ -1794,11 +1798,11 @@ SPEC CHECKSUMS:
   React-utils: 87f64cff8c1fe244bf688a7a48395a70eb61a509
   ReactCodegen: f8ed6f835a2fffe2a3666dfbce5ff1b120f24982
   ReactCommon: a33f215e2ca23410f8f44b0a94ab93120882e5e5
-  ReactNativeHost: 52d030b1bef01911c39fb440fc402461263316ff
-  ReactTestApp-DevSupport: f781365c3ae6377dcfa2affe319ae66e0fb20777
+  ReactNativeHost: 6452a9f39ec92ef8ce5f752ec2e1fa0cd2180b8e
+  ReactTestApp-DevSupport: 74676edd899013becce4eaecc5eabba1fc51e26e
   ReactTestApp-Resources: 857244f3a23f2b3157b364fa06cf3e8866deff9c
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 2a45d7e59592db061217551fd3bbe2dd993817ae
+  Yoga: a1d7895431387402a674fd0d1c04ec85e87909b8
 
 PODFILE CHECKSUM: 99cce10db3b319d0db4b90ef84e2e4e217bf9a54
 

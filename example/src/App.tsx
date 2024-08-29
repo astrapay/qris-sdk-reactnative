@@ -1,5 +1,5 @@
+import { executeQris } from '@astrapay/astrapay-qris-react-native';
 import { StyleSheet, View, Text, Button } from 'react-native';
-import { executeQris } from 'astrapay-qris-react-native';
 
 export default function App() {
   const buttonOnpress = () => {
