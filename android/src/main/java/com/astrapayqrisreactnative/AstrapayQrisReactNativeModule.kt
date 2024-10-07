@@ -1,43 +1,83 @@
 package com.astrapayqrisreactnative
 
-import com.astrapay.apqrisscanner.ApQrisScanner
-import com.astrapay.apqrisscanner.ApScannerListener
-import com.astrapay.apqrisscanner.ApScannerSetup
-import com.astrapay.apqrisscanner.EventType
+import com.astrapay.qris.sdk.AstraPayQris
+import com.astrapay.qris.sdk.QRConfiguration
+import com.astrapay.qris.sdk.QrisTransactionListener
+import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.facebook.react.bridge.Promise
+import com.facebook.react.bridge.WritableMap
+import com.facebook.react.modules.core.DeviceEventManagerModule
 
-class AstrapayQrisReactNativeModule(reactContext: ReactApplicationContext) :
-  ReactContextBaseJavaModule(reactContext), ApScannerListener {
+class AstrapayQrisReactNativeModule(private val reactContext: ReactApplicationContext) :
+  ReactContextBaseJavaModule(reactContext), QrisTransactionListener {
 
   override fun getName(): String {
-    return NAME
+    return "AstraPayQrisReactNative123"
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
-  fun multiply(a: Double, b: Double, promise: Promise) {
-    promise.resolve(a * b)
+  fun initializeQris(authToken: String, sdkToken: String, environment: String, isSnap: Boolean, promise: Promise) {
+    try {
+      val configuration = QRConfiguration.Builder(
+        authToken = authToken,
+        sdkToken = sdkToken,
+        environment = environment,
+        isSnap = isSnap
+      )
+        .setEventListener(this)
+        .build()
+
+      AstraPayQris.initialize(configuration)
+      promise.resolve("SDK Initialized")
+    } catch (e: Exception) {
+      promise.reject("InitializationError", e)
+    }
   }
 
-    @ReactMethod
-  fun executeQris() {
-    val setup = ApScannerSetup(currentActivity,this)
-    ApQrisScanner.execute(setup)
-//    promise.resolve(a * b)
+  @ReactMethod
+  fun start() {
+    currentActivity?.let {
+      AstraPayQris.getInstance().start(it)
+    }
   }
 
-  override fun onComplete(type: EventType) {
+  @ReactMethod
+  fun addListener(type: String?) {
+    // Keep: Required for RN built in Event Emitter Calls.
   }
 
-  override fun onQrisScanned(data: String) {
+  @ReactMethod
+  fun removeListeners(type: Int?) {
+    // Keep: Required for RN built in Event Emitter Calls.
   }
 
+  override fun onTransactionComplete() {
+    sendEvent("onTransactionComplete", null)
+  }
 
-  companion object {
-    const val NAME = "AstrapayQrisReactNative"
+  override fun onTransactionFailed() {
+    sendEvent("onTransactionFailed", null)
+  }
+
+  override fun onTransactionForbidden() {
+    sendEvent("onTransactionForbidden", null)
+  }
+
+  override fun onTransactionCanceled() {
+    sendEvent("onTransactionCanceled", null)
+  }
+
+  override fun onTransactionProcessing() {
+    sendEvent("onTransactionProcessing", null)
+  }
+
+  override fun onShowTransactionHistory() {
+    sendEvent("onShowTransactionHistory", null)
+  }
+
+  private fun sendEvent(eventName: String, params: WritableMap?) {
+    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java).emit(eventName, params)
   }
 }

@@ -1,27 +1,33 @@
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { executeQris } from 'astrapay-qris-react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from './HomeScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import ProfileScreen from './ProfileScreen';
+import QrisScreen from './QrisScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const buttonOnpress = () => {
-    executeQris();
-  };
   return (
-    <View style={styles.container}>
-      <Text>Sample App</Text>
-      <Button onPress={buttonOnpress} title="Scan Qris" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome home' }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ title: 'Welcome To Profile' }}
+        />
+
+        <Stack.Screen
+          name="Qris"
+          component={QrisScreen}
+          options={{ title: 'QRIS Transaction' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});

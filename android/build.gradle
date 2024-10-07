@@ -80,6 +80,9 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+  buildFeatures {
+    viewBinding = true
+  }
 }
 
 repositories {
@@ -95,6 +98,6 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.astrapay:astrapay-qris:0.0.5-beta"
+  implementation "com.astrapay:qris-sdk-android:0.6.0-SNAPSHOT"
 }
 
