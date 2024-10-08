@@ -1,7 +1,7 @@
 PODS:
-  - astrapay-qris (0.3.9)
-  - astrapay-qris-react-native (1.0.2):
-    - astrapay-qris (= 0.3.9)
+  - astrapay-qris (0.5.3)
+  - astrapay-qris-react-native (1.0.3):
+    - astrapay-qris (= 0.5.3)
     - DoubleConversion
     - glog
     - MoEngage-iOS-SDK (~> 9.16.2)
@@ -1247,6 +1247,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-safe-area-context (4.11.0):
+    - React-Core
   - React-nativeconfig (0.75.2)
   - React-NativeModulesApple (0.75.2):
     - glog
@@ -1490,7 +1492,7 @@ PODS:
     - React-logger (= 0.75.2)
     - React-perflogger (= 0.75.2)
     - React-utils (= 0.75.2)
-  - ReactNativeHost (0.4.11):
+  - ReactNativeHost (0.5.0):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1512,10 +1514,32 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ReactTestApp-DevSupport (3.9.0):
+  - ReactTestApp-DevSupport (3.10.14):
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
+  - RNScreens (3.34.0):
+    - DoubleConversion
+    - glog
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-RCTImage
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1557,6 +1581,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1585,6 +1610,7 @@ DEPENDENCIES:
   - "ReactNativeHost (from `../node_modules/@rnx-kit/react-native-host`)"
   - ReactTestApp-DevSupport (from `../node_modules/react-native-test-app`)
   - ReactTestApp-Resources (from `..`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1668,6 +1694,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1724,23 +1752,25 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-test-app"
   ReactTestApp-Resources:
     :path: ".."
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  astrapay-qris: 5f49fcc9ab1cd7faf47429f7d29ff3fed85b3a10
-  astrapay-qris-react-native: 928fd4707fa2d94210f0c91b012ab22b737d93de
+  astrapay-qris: cb7a633467b58cce8a76e91171d04ebff9f221f9
+  astrapay-qris-react-native: 7ef97397dd84b00dd66f47f329f0e71518b3d189
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 38bb611218305c3bc61803e287b8a81c6f63b619
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
-  glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
+  glog: 69ef571f3de08433d766d614c73a9838a06bf7eb
   MoEngage-iOS-SDK: ea23c93daa4206b2bc85145f21891ec44ad2def6
   MoEngageGeofence: e24388f7f92e530542c0937f55fbf4284fc7a8cd
   MoEngageInApp: 6e53fdb8ee1cf153a8d4c27f3c1d4597f9b1b01b
   MoEngageInbox: 836c7d3106993194eb6108f05c0b446e9325378b
   MoEngageRichNotification: bf262b0f72c69a584321241f1fcfca8ac9abb9c1
-  RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
+  RCT-Folly: 4464f4d875961fce86008d45f4ecf6cef6de0740
   RCTDeprecation: 34cbf122b623037ea9facad2e92e53434c5c7422
   RCTRequired: 24c446d7bcd0f517d516b6265d8df04dc3eb1219
   RCTTypeSafety: ef5e91bd791abd3a99b2c75fd565791102a66352
@@ -1769,6 +1799,7 @@ SPEC CHECKSUMS:
   React-logger: 8db32983d75dc2ad54f278f344ccb9b256e694fc
   React-Mapbuffer: 1c08607305558666fd16678b85ef135e455d5c96
   React-microtasksnativemodule: e8efd9e5df1ab51a58e45326b98787cf21d47e6e
+  react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   React-nativeconfig: 57781b79e11d5af7573e6f77cbf1143b71802a6d
   React-NativeModulesApple: e35ceb132b4005f4bb8924a3a87b9fd3c21b15ee
   React-perflogger: 8a360ccf603de6ddbe9ff8f54383146d26e6c936
@@ -1794,9 +1825,10 @@ SPEC CHECKSUMS:
   React-utils: 87f64cff8c1fe244bf688a7a48395a70eb61a509
   ReactCodegen: f8ed6f835a2fffe2a3666dfbce5ff1b120f24982
   ReactCommon: a33f215e2ca23410f8f44b0a94ab93120882e5e5
-  ReactNativeHost: 52d030b1bef01911c39fb440fc402461263316ff
-  ReactTestApp-DevSupport: f781365c3ae6377dcfa2affe319ae66e0fb20777
-  ReactTestApp-Resources: 857244f3a23f2b3157b364fa06cf3e8866deff9c
+  ReactNativeHost: 99c0ffb175cd69de2ac9a70892cd22dac65ea79d
+  ReactTestApp-DevSupport: ed439cce949caf074af3ae05051b4bd157ed4019
+  ReactTestApp-Resources: 7db90c026cccdf40cfa495705ad436ccc4d64154
+  RNScreens: 5288a8dbeedb3c5051aa2d5658c1c553c050b80a
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 2a45d7e59592db061217551fd3bbe2dd993817ae
 

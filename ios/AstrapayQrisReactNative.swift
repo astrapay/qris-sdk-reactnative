@@ -1,8 +1,8 @@
 import AstraPayQrisSdk
 
 @objc(AstrapayQrisReactNative)
-class AstrapayQrisReactNative: NSObject, AstraPayQrisSdk.QRProtocolSdk {
-    
+class AstrapayQrisReactNative: AstrapayQrisReactNativeEventEmitter, AstraPayQrisSdk.QRProtocolSdk {
+    var hasListener = false
     @objc(authToken:sdkToken:environment:isSnap:withResolver:withRejecter:)
     func initializeQris(authToken: String, sdkToken: String, environment: String, isSnap: Bool, resolver: RCTPromiseResolveBlock, rejecter: RCTPromiseRejectBlock) {
         AstraPayQrisSdk.QRConfigurationSdk.AUTH_TOKEN = authToken
@@ -33,35 +33,43 @@ class AstrapayQrisReactNative: NSObject, AstraPayQrisSdk.QRProtocolSdk {
         }
     }
     
-    func onForbidden(viewControler: UIViewController) {
-        print("onForbidden1")
-    }
-    
     func onForbidden(viewController: UIViewController) {
-        print("onForbidden2")
+        sendEvent(withName: "onTransactionForbidden", body: nil)
     }
-    
+
     func onComplete(viewController: UIViewController) {
-        print("onComplete")
+        sendEvent(withName: "onTransactionComplete", body: nil)
     }
-    
+
     func onFailed(viewController: UIViewController) {
-        print("onFailed")
+        sendEvent(withName: "onTransactionFailed", body: nil)
     }
-    
+
     func onShowHistory(viewController: UIViewController) {
-        print("onShowHistory")
+        sendEvent(withName: "onShowTransactionHistory", body: nil)
     }
-    
+
     func onProcessing(viewController: UIViewController) {
-        print("onProcessing")
+        sendEvent(withName: "onTransactionProcessing", body: nil)
     }
-    
+
     func onCancel(viewController: UIViewController) {
-        print("onCancel")
+        sendEvent(withName: "onTransactionCanceled", body: nil)
     }
     
-    func onPaylaterActivate(viewController: UIViewController) {
-        print("onPaylaterActivate")
+    override func startObserving() {
+        super.startObserving()
+        hasListener = true
+    }
+    
+    override func stopObserving() {
+        super.stopObserving()
+        hasListener = false
+    }
+    
+    override func sendEvent(withName name: String!, body: Any!) {
+        if hasListener {
+            super.sendEvent(withName: name, body: body)
+        }
     }
 }
