@@ -14,7 +14,7 @@ class AstrapayQrisReactNativeModule(private val reactContext: ReactApplicationCo
   ReactContextBaseJavaModule(reactContext), QrisTransactionListener {
 
   override fun getName(): String {
-    return "AstraPayQrisReactNative123"
+    return "AstraPayQrisReactNative"
   }
 
   @ReactMethod

@@ -1,7 +1,7 @@
 PODS:
-  - astrapay-qris (0.5.3)
+  - astrapay-qris (0.5.4)
   - astrapay-qris-react-native (1.0.3):
-    - astrapay-qris (= 0.5.3)
+    - astrapay-qris (= 0.5.4)
     - DoubleConversion
     - glog
     - MoEngage-iOS-SDK (~> 9.16.2)
@@ -1758,8 +1758,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  astrapay-qris: cb7a633467b58cce8a76e91171d04ebff9f221f9
-  astrapay-qris-react-native: 7ef97397dd84b00dd66f47f329f0e71518b3d189
+  astrapay-qris: 70b774f8f97181c5f36d6dd8240936d81efd9b97
+  astrapay-qris-react-native: 2f4fed2616e285bf2d0ee7523d961c9891a03dfb
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: 38bb611218305c3bc61803e287b8a81c6f63b619

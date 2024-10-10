@@ -1,4 +1,9 @@
-import { DeviceEventEmitter, NativeModules, Platform } from 'react-native';
+import {
+  DeviceEventEmitter,
+  NativeEventEmitter,
+  NativeModules,
+  Platform,
+} from 'react-native';
 import type { QrisSdkConfiguration, QrisSdkModule } from './QrisSdkTypes';
 
 const LINKING_ERROR =
@@ -10,8 +15,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const AstrapayQrisReactNative = NativeModules.AstraPayQrisReactNative123
-  ? NativeModules.AstraPayQrisReactNative123
+const AstrapayQrisReactNative = NativeModules.AstraPayQrisReactNative
+  ? NativeModules.AstraPayQrisReactNative
   : new Proxy(
       {},
       {
@@ -22,22 +27,25 @@ const AstrapayQrisReactNative = NativeModules.AstraPayQrisReactNative123
     );
 
 const QrisModule = AstrapayQrisReactNative;
-export const eventEmitter = DeviceEventEmitter;
+export const eventEmitter = (function () {
+  if (Platform.OS === 'android') {
+    return DeviceEventEmitter;
+  } else if (Platform.OS === 'ios') {
+    return new NativeEventEmitter(NativeModules.AstraPayQrisReactNative);
+  }
+  return DeviceEventEmitter;
+})();
 
 class QrisSdk implements QrisSdkModule {
-  initialize(config: QrisSdkConfiguration): void {
-    if (Platform.OS === 'android') {
-      try {
-        QrisModule.initializeQris(
-          config.authToken,
-          config.sdkToken,
-          config.environment,
-          config.isSnap
-        );
-      } catch (error) {
-        console.error('Transaction Start Error:', error);
-      }
-    }
+  async initialize(config: QrisSdkConfiguration) {
+    try {
+      await NativeModules.AstraPayQrisReactNative.initializeQris(
+        config.authToken,
+        config.sdkToken,
+        config.environment,
+        config.isSnap
+      );
+    } catch (error) {}
   }
 
   async startTransaction() {

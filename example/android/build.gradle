@@ -37,7 +37,6 @@ allprojects {
                 throw new GradleException("Could not find `react-native`");
             }())
         }
-        mavenLocal()
         mavenCentral()
         google()
     }
