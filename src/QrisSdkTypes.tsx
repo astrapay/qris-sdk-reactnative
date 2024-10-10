@@ -1,5 +1,3 @@
-import QrisSdkModule from './QrisSdkModule';
-
 export interface QrisSdkConfiguration {
   authToken: string;
   sdkToken: string;
