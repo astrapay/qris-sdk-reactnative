@@ -4,7 +4,7 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import type { QrisSdkConfiguration, QrisSdkModule } from './QrisSdkTypes';
+import type { QrisSdkConfiguration } from './QrisSdkTypes';
 
 const LINKING_ERROR =
   `The package 'astrapay-qris-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -36,8 +36,8 @@ export const eventEmitter = (function () {
   return DeviceEventEmitter;
 })();
 
-class QrisSdk implements QrisSdkModule {
-  async initialize(config: QrisSdkConfiguration) {
+class QrisSdk {
+  static async initialize(config: QrisSdkConfiguration) {
     try {
       await NativeModules.AstraPayQrisReactNative.initializeQris(
         config.authToken,
@@ -48,7 +48,7 @@ class QrisSdk implements QrisSdkModule {
     } catch (error) {}
   }
 
-  async startTransaction() {
+  static async startTransaction() {
     try {
       await QrisModule.start();
     } catch (error) {
@@ -56,31 +56,31 @@ class QrisSdk implements QrisSdkModule {
     }
   }
 
-  onTransactionComplete(callback: () => void): void {
+  static onTransactionComplete(callback: () => void): void {
     eventEmitter.addListener('onTransactionComplete', callback);
   }
 
-  onTransactionFailed(callback: () => void): void {
+  static onTransactionFailed(callback: () => void): void {
     eventEmitter.addListener('onTransactionFailed', callback);
   }
 
-  onTransactionForbidden(callback: () => void): void {
+  static onTransactionForbidden(callback: () => void): void {
     eventEmitter.addListener('onTransactionForbidden', callback);
   }
 
-  onTransactionCanceled(callback: () => void): void {
+  static onTransactionCanceled(callback: () => void): void {
     eventEmitter.addListener('onTransactionCanceled', callback);
   }
 
-  onTransactionProcessing(callback: () => void): void {
+  static onTransactionProcessing(callback: () => void): void {
     eventEmitter.addListener('onTransactionProcessing', callback);
   }
 
-  onShowTransactionHistory(callback: () => void): void {
+  static onShowTransactionHistory(callback: () => void): void {
     eventEmitter.addListener('onShowTransactionHistory', callback);
   }
 
-  removeListener() {
+  static removeListener() {
     eventEmitter.removeAllListeners('onTransactionComplete');
     eventEmitter.removeAllListeners('onTransactionFailed');
     eventEmitter.removeAllListeners('onTransactionForbidden');
@@ -90,4 +90,5 @@ class QrisSdk implements QrisSdkModule {
   }
 }
 
-export default new QrisSdk();
+export type { QrisSdkConfiguration };
+export default QrisSdk;

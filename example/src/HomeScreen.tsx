@@ -1,8 +1,9 @@
 import { View, Text, SafeAreaView, Alert } from 'react-native';
 import AppButton from './component/AppButton';
 import { useEffect } from 'react';
-import type { QrisSdkConfiguration } from '../../src/QrisSdkTypes';
-import QrisSdk from '../../src';
+import QrisSdk, {
+  type QrisSdkConfiguration,
+} from '@astrapay/qris-react-native';
 
 export default function HomeScreen({ navigation }: any) {
   useEffect(() => {
