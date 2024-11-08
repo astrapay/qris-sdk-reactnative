@@ -3,28 +3,34 @@
 
 A React Native SDK to integrate Astrapay QRIS payment services into your mobile application.
 
-
 ## Installation
 
 To add the Astrapay QRIS SDK to your project:
 
 #### Using yarn:
+
 ```bash
 yarn add @astrapay/qris-react-native
 ```
 
 #### Using npm:
+
 ```bash
 npm install @astrapay/qris-react-native
 ```
 
 ## Configuration
+
 Before starting any QRIS transaction, initialize the SDK with a valid configuration object.
-```
+
+```typescript
 QrisSdk.initialize(config)
 ```
+
 ### Android
+
 If you have not enabled view binding in your Android Gradle file, add the following lines at android/app/build.gradle:
+
 ```gradle
 android {
     ...
@@ -35,7 +41,9 @@ android {
 ```
 
 ### iOS
+
 if you are using new version of react-native, which is you using turbo module, you need to add the following lines at Appdelegate.mm (or Appdelegate.m for older version) file:
+
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -60,6 +68,7 @@ if you are using new version of react-native, which is you using turbo module, y
 ```
 
 For swift project, you need to add the following lines at Appdelegate.swift file:
+
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   ...
@@ -91,6 +100,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 | `isSnap`   | `boolean` | Yes        | Boolean flag to indicate if the client already use Snap |
 
 #### Example
+
 ```javascript
 const config: QrisSdkConfiguration = {
   authToken: 'your-auth-token',
@@ -102,12 +112,15 @@ const config: QrisSdkConfiguration = {
 QrisSdk.initialize(config);
 
 ```
+
 ## Usage
+
 Once the SDK is initialized, you can start a QRIS transaction:
 
 ```javascript
 QrisSdk.startTransaction()
 ```
+
 Call this method to start a new QRIS transaction.
 
 ## Methods
@@ -116,12 +129,13 @@ Call this method to start a new QRIS transaction.
 * QrisSdk.startTransaction(): Starts the QRIS transaction process
 
 ## Listeners
+
 The SDK provides several listeners for handling transaction events:
+
 * onTransactionComplete: Triggered when a transaction is completed successfully.
 * onTransactionFailed: Triggered when a transaction fails.
 * onTransactionForbidden: Triggered if the transaction is forbidden.
 * onTransactionCanceled: Triggered if the user cancels the transaction.
-
 
 ## Example
 
