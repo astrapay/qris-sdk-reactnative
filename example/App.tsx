@@ -5,9 +5,12 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
+import type { PropsWithChildren } from 'react';
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -24,36 +27,13 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import HomeScreen from './screens/HomeScreen';
+import QrisSdk, { QrisSdkConfiguration } from '@astrapay/qris-react-native';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -62,37 +42,65 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // useEffect(() => {
+  //   const config: QrisSdkConfiguration = {
+  //     authToken:
+  //       'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIyNTAwMDU0NiIsImFjY291bnRJZCI6MjExOSwiYWNjb3VudElkUG9pbnQiOjY2MiwibmJmIjoxNzI4NjE0MzA4LCJjYklkIjoiODQyNjg5ZmItNmFhNS00MDljLWEzNTMtMDA2YmY2ODU4NWEwIiwiaXNzIjoiQXN0cmFQYXktRGV2IiwiY2xhaW0iOiJTTkFQIiwiZXhwIjoxNzI5OTEwMzA4LCJpYXQiOjE3Mjg2MTQzMDgsImp0aSI6IjdiOGEwNmQ2LTk4ZTEtNGY4YS1hN2YzLWFiZDYwNDQyMzI5MCJ9.HUIyYEAEGDpR-qmZx6Kp5SBEh2qXA8Qifx9awZGqZ5Z2_znWNY0sCXwDgRyTN4UxmzOeueUoyNXSwnrxk1Y78PaOGAM-0lSTy4hu572PUi5_L48SlYog9vVUlZEK4QwA8Em7HcD4SE_xq3LfDLHHjdmHQ-shE0xMSPLFZmiPOzGxoxqw34C8R7XYbrqnx3X6kc5G39muQy2lBejeC73XEkCEXoJWKHi6YC_aM5FSlyP1UQvcjl8JG1HfS0MrTqT1qNItbyeSwi7-KAK3c2MZu7X88M413Ti0WbQeHTUT4TY54IKjUYW618ihyjgnmaLh_3QsX2SHoVVGSf50chj32A',
+  //     sdkToken: 'XTOKEN',
+  //     environment: 'UAT',
+  //     isSnap: true,
+  //   };
+
+  //   QrisSdk.initialize(config);
+
+  //   QrisSdk.onTransactionComplete(() => {
+  //     Alert.alert('Transaction Complete');
+  //   });
+
+  //   QrisSdk.onTransactionFailed(() => {
+  //     Alert.alert('Transaction Failed');
+  //   });
+
+  //   QrisSdk.onTransactionForbidden(() => {
+  //     Alert.alert('onTransactionForbidden Called');
+  //   });
+
+  //   QrisSdk.onTransactionCanceled(() => {
+  //     Alert.alert('Transaction Canceled');
+  //   });
+
+  //   return () => {
+  //     QrisSdk.removeListener();
+  //   };
+  // }, []);
+
+  // const handleStartTransaction = () => {
+  //   QrisSdk.startTransaction();
+  // };
+
+  // return (
+  //   <SafeAreaView>
+  //     <View>
+  //       <Text>Anjaay</Text>
+  //     </View>
+  //   </SafeAreaView>
+  // );
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome home' }}
+        />
+        {/* <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ title: 'Welcome To Profile' }}
+        /> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
