@@ -19,11 +19,8 @@ class AstraPayQrisReactNative: RCTEventEmitter {
                     AstraPayQrisSdk.QRConfigurationSdk.BUILD_MODE = .prod
             }
             AstraPayQrisSdk.QRConfigurationSdk.SDK_TOKEN = sdkToken
-            AstraPayQrisSdk.QRConfigurationSdk.otpVersion = true
-            AstraPayQrisSdk.QRConfigurationSdk.loproVersion = 21
             AstraPayQrisSdk.QRNewRouter.sharedInstance.delegate = self
             AstraPayQrisSdk.QRConfigurationSdk.isSnap = isSnap
-            AstraPayQrisSdk.QRConfigurationSdk.qrisConfirmationVersion = 1
             resolve("SDK Initialized")
         }
         

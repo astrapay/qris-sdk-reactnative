@@ -1,19 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { Text, View } from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import HomeScreen from './screens/HomeScreen';
-
-const Stack = createNativeStackNavigator();
-
-function App(): React.JSX.Element {
-
+const HomeScreen = () => {
   // useEffect(() => {
   //   const config: QrisSdkConfiguration = {
   //     authToken:
@@ -49,31 +36,11 @@ function App(): React.JSX.Element {
   // const handleStartTransaction = () => {
   //   QrisSdk.startTransaction();
   // };
-
-  // return (
-  //   <SafeAreaView>
-  //     <View>
-  //       <Text>Anjaay</Text>
-  //     </View>
-  //   </SafeAreaView>
-  // );
-
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Welcome home' }}
-        />
-        {/* <Stack.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{ title: 'Welcome To Profile' }}
-        /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View>
+      <Text>HomeScreen</Text>
+    </View>
   );
-}
+};
 
-export default App;
+export default HomeScreen;
