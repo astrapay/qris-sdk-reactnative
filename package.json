@@ -1,6 +1,6 @@
 {
   "name": "@astrapay/qris-react-native",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "It is react native qris sdk for astrapay partner",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
