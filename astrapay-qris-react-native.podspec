@@ -11,11 +11,11 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => '14' }
+  s.platforms    = { :ios => '11.0' }
   s.source       = { :git => "https://github.com/astrapay/qris-sdk-reactnative.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
-  s.dependency "astrapay-qris", '0.5.6'
+  s.dependency "astrapay-qris", '1.0.0'
 
 
 

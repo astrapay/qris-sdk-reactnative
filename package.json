@@ -1,6 +1,6 @@
 {
   "name": "@astrapay/qris-react-native",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "It is react native qris sdk for astrapay partner",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -36,7 +36,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace astrapay-qris-react-native-example",
+    "example": "yarn workspace AstrapayQrisReactNativeExample",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
@@ -64,7 +64,6 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
-    "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "0.75.2",
     "@release-it/conventional-changelog": "^5.0.0",
     "@types/jest": "^29.5.5",
@@ -130,7 +129,15 @@
       "prettier"
     ],
     "rules": {
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ]
     }
   },
   "eslintIgnore": [
