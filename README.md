@@ -39,10 +39,17 @@ android {
     }
 }
 ```
+Also since we are using Material Themes, you need to implement Material Component Theme at yout themes.xml file 
+```
+<style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!-- Your custom theme here. -->
+</style>
+}
+```
 
 ### iOS
 
-if you are using new version of react-native, which is you using turbo module, you need to add the following lines at Appdelegate.mm (or Appdelegate.m for older version) file:
+If you are using new version of react-native, usage of turbo module is not yet supported as of this version, you need to disable turbo module by adding the following lines at Appdelegate.mm (or Appdelegate.m for older version) file:
 
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
