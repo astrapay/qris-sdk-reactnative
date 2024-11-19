@@ -15,6 +15,16 @@ RCT_EXPORT_METHOD(multiply:(double)a
     resolve(result);
 }
 
+RCT_EXPORT_METHOD(initialize:(JS::NativeQrisSdkReactnative::QrisSdkConfigurationSpec &)config resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
+    
+}
+
+RCT_EXPORT_METHOD(start) {
+    
+}
+
+
+
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

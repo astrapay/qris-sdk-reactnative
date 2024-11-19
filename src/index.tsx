@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { QrisSdkConfiguration } from './QrisSdkConfiguration';
 
 const LINKING_ERROR =
   `The package 'qris-sdk-reactnative' doesn't seem to be linked. Make sure: \n\n` +
@@ -26,4 +27,12 @@ const QrisSdkReactnative = QrisSdkReactnativeModule
 
 export function multiply(a: number, b: number): Promise<number> {
   return QrisSdkReactnative.multiply(a, b);
+}
+
+export function initialize(config: QrisSdkConfiguration): Promise<string> {
+  return QrisSdkReactnative.initialize(config);
+}
+
+export function startTransaction(): void {
+  return QrisSdkReactnative.start();
 }

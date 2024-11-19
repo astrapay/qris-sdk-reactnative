@@ -16,6 +16,14 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,cpp}"
 
+  s.dependency "astrapay-qris", '1.0.0'
+
+  s.dependency 'MoEngage-iOS-SDK' , '~> 9.16.2'
+  s.dependency 'MoEngageGeofence','~>5.15.0'
+  s.dependency 'MoEngageRichNotification','~>7.15.0'
+  s.dependency 'MoEngageInApp','~> 4.15.0'
+  s.dependency 'MoEngageInbox','~>2.15.0'
+
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
   # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
   if respond_to?(:install_modules_dependencies, true)
