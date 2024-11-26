@@ -6,11 +6,13 @@ interface QrisSdkConfigurationSpec {
   sdkToken: string;
   environment: string;
   isSnap: boolean;
+  refreshToken: string;
 }
 export interface Spec extends TurboModule {
-  multiply(a: number, b: number): Promise<number>;
   initialize(config: QrisSdkConfigurationSpec): Promise<string>;
   start(): void;
+  addListener: (eventType: string) => void;
+  removeListeners: (count: number) => void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('QrisSdkReactnative');

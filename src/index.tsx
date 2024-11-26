@@ -1,5 +1,14 @@
-import { NativeModules, Platform } from 'react-native';
-import type { QrisSdkConfiguration } from './QrisSdkConfiguration';
+import {
+  DeviceEventEmitter,
+  NativeEventEmitter,
+  NativeModules,
+  Platform,
+} from 'react-native';
+import type {
+  QrisSdkConfiguration,
+  QrisTransactionHistorySummaryAndroid,
+  QrisTransactionHistorySummaryIos,
+} from './QrisSdkConfiguration';
 
 const LINKING_ERROR =
   `The package 'qris-sdk-reactnative' doesn't seem to be linked. Make sure: \n\n` +
@@ -24,15 +33,83 @@ const QrisSdkReactnative = QrisSdkReactnativeModule
         },
       }
     );
+export const eventEmitter = (function () {
+  if (Platform.OS === 'android') {
+    return DeviceEventEmitter;
+  } else if (Platform.OS === 'ios') {
+    return new NativeEventEmitter(QrisSdkReactnative);
+  }
+  return DeviceEventEmitter;
+})();
 
-export function multiply(a: number, b: number): Promise<number> {
-  return QrisSdkReactnative.multiply(a, b);
+class QrisSdk {
+  static async initialize(config: QrisSdkConfiguration) {
+    try {
+      return QrisSdkReactnative.initialize(config);
+    } catch (error) {}
+  }
+
+  static async startTransaction() {
+    try {
+      return QrisSdkReactnative.start();
+    } catch (error) {
+      console.error('Transaction Start Error:', error);
+    }
+  }
+
+  static onTransactionComplete(callback: () => void): void {
+    eventEmitter.addListener('onTransactionComplete', callback);
+  }
+
+  static onTransactionFailed(callback: () => void): void {
+    eventEmitter.addListener('onTransactionFailed', callback);
+  }
+
+  static onTransactionForbidden(callback: () => void): void {
+    eventEmitter.addListener('onTransactionForbidden', callback);
+  }
+
+  static onTransactionCanceled(callback: () => void): void {
+    eventEmitter.addListener('onTransactionCanceled', callback);
+    console.log('listener called', 'onTransactionCanceled');
+  }
+
+  static onTransactionProcessing(callback: () => void): void {
+    eventEmitter.addListener('onTransactionProcessing', callback);
+  }
+
+  static onShowTransactionHistory(callback: () => void): void {
+    eventEmitter.addListener('onShowTransactionHistory', callback);
+  }
+
+  static onCompleteTransaction(callback: () => void): void {
+    eventEmitter.addListener('onShowTransactionHistory', callback);
+  }
+
+  static onCompleteTransactionHistory(
+    callback: (summary: QrisTransactionHistorySummary) => void
+  ): void {
+    eventEmitter.addListener('onCompleteTransactionHistory', callback);
+  }
+
+  static removeListener() {
+    eventEmitter.removeAllListeners('onTransactionComplete');
+    eventEmitter.removeAllListeners('onTransactionFailed');
+    eventEmitter.removeAllListeners('onTransactionForbidden');
+    eventEmitter.removeAllListeners('onTransactionCanceled');
+    eventEmitter.removeAllListeners('onTransactionProcessing');
+    eventEmitter.removeAllListeners('onShowTransactionHistory');
+    eventEmitter.removeAllListeners('onCompleteTransactionHistory');
+  }
 }
 
-export function initialize(config: QrisSdkConfiguration): Promise<string> {
-  return QrisSdkReactnative.initialize(config);
-}
+type QrisTransactionHistorySummary = Platform['OS'] extends 'android'
+  ? QrisTransactionHistorySummaryAndroid
+  : QrisTransactionHistorySummaryIos;
 
-export function startTransaction(): void {
-  return QrisSdkReactnative.start();
-}
+export type {
+  QrisSdkConfiguration,
+  QrisTransactionHistorySummaryIos,
+  QrisTransactionHistorySummaryAndroid,
+};
+export default QrisSdk;

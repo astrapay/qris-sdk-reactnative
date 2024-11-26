@@ -9,35 +9,71 @@ import {
   type ViewStyle,
   type TextStyle,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import { initialize, startTransaction } from 'qris-sdk-reactnative';
-import type { QrisSdkConfiguration } from '../../src/QrisSdkConfiguration';
+
+import type { QrisSdkConfiguration } from '@astrapay/qris-react-native';
+import QrisSdk from '@astrapay/qris-react-native';
 
 const App = () => {
   useEffect(() => {
     const config: QrisSdkConfiguration = {
-      authToken: '',
+      authToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIyNTAwMDU0NiIsImFjY291bnRJZCI6MjExOSwiYWNjb3VudElkUG9pbnQiOjY2MiwibmJmIjoxNzI4NjE0MzA4LCJjYklkIjoiODQyNjg5ZmItNmFhNS00MDljLWEzNTMtMDA2YmY2ODU4NWEwIiwiaXNzIjoiQXN0cmFQYXktRGV2IiwiY2xhaW0iOiJTTkFQIiwiZXhwIjoxNzI5OTEwMzA4LCJpYXQiOjE3Mjg2MTQzMDgsImp0aSI6IjdiOGEwNmQ2LTk4ZTEtNGY4YS1hN2YzLWFiZDYwNDQyMzI5MCJ9.HUIyYEAEGDpR-qmZx6Kp5SBEh2qXA8Qifx9awZGqZ5Z2_znWNY0sCXwDgRyTN4UxmzOeueUoyNXSwnrxk1Y78PaOGAM-0lSTy4hu572PUi5_L48SlYog9vVUlZEK4QwA8Em7HcD4SE_xq3LfDLHHjdmHQ-shE0xMSPLFZmiPOzGxoxqw34C8R7XYbrqnx3X6kc5G39muQy2lBejeC73XEkCEXoJWKHi6YC_aM5FSlyP1UQvcjl8JG1HfS0MrTqT1qNItbyeSwi7-KAK3c2MZu7X88M413Ti0WbQeHTUT4TY54IKjUYW618ihyjgnmaLh_3QsX2SHoVVGSf50chj32A',
       sdkToken: 'XTOKEN',
       environment: 'UAT',
       isSnap: true,
     };
 
-    initialize(config);
+    QrisSdk.initialize(config);
 
-    return () => {};
+    QrisSdk.onTransactionComplete(() => {
+      Alert.alert('Transaction Complete');
+    });
+
+    QrisSdk.onTransactionFailed(() => {
+      Alert.alert('Transaction Failed');
+    });
+
+    QrisSdk.onTransactionForbidden(() => {
+      Alert.alert('onTransactionForbidden Called');
+    });
+
+    QrisSdk.onTransactionCanceled(() => {
+      Alert.alert('Transaction Canceled');
+    });
+
+    return () => {
+      QrisSdk.removeListener();
+    };
   }, []);
 
   const handleStartTransaction = () => {
-    startTransaction();
+    QrisSdk.startTransaction();
   };
-
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.mainContainer}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
+        height: '100%',
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          alignContent: 'center',
+          alignSelf: 'center',
+          marginTop: 30,
+        }}
+      >
         <Text>HomeScreen</Text>
+
         <AppButton
           title="Navigate to QRIS"
-          buttonStyle={styles.marginTop50}
+          buttonStyle={{ marginTop: 50 }}
           onPress={handleStartTransaction}
         />
       </View>
@@ -51,16 +87,15 @@ type AppButtonProps = {
   buttonStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
 };
-
 const AppButton: React.FC<AppButtonProps> = (props) => {
   const { onPress, title, buttonStyle, textStyle } = props;
   return (
     <TouchableOpacity
-      style={StyleSheet.flatten([styles.buttonContainer, buttonStyle])}
+      style={StyleSheet.flatten([styles.container, buttonStyle])}
       onPress={onPress}
     >
       <View>
-        <Text style={StyleSheet.flatten([styles.buttonText, textStyle])}>
+        <Text style={StyleSheet.flatten([styles.text, textStyle])}>
           {title}
         </Text>
       </View>
@@ -69,23 +104,7 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    alignItems: 'center',
-    alignContent: 'center',
-    height: '100%',
-  },
-  mainContainer: {
-    flex: 1,
-    alignItems: 'center',
-    alignContent: 'center',
-    alignSelf: 'center',
-    marginTop: 30,
-  },
-  marginTop50: {
-    marginTop: 50,
-  },
-  buttonContainer: {
+  container: {
     backgroundColor: '#42a5f5',
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -94,9 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonText: {
-    color: 'white',
-  },
+  text: { color: 'white' },
 });
 
 export default App;
