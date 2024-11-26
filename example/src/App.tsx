@@ -23,6 +23,7 @@ const App = () => {
       sdkToken: 'XTOKEN',
       environment: 'UAT',
       isSnap: true,
+      refreshToken: '123',
     };
 
     QrisSdk.initialize(config);

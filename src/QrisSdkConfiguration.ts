@@ -3,6 +3,7 @@ export interface QrisSdkConfiguration {
   sdkToken: string;
   environment: 'SIT' | 'UAT' | 'PROD';
   isSnap: boolean;
+  refreshToken: string;
 }
 
 export interface QrisTransactionHistorySummaryIos {
