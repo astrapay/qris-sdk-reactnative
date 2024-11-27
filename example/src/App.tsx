@@ -19,11 +19,11 @@ const App = () => {
   useEffect(() => {
     const config: QrisSdkConfiguration = {
       authToken:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIyNTAwMDU0NiIsImFjY291bnRJZCI6MjExOSwiYWNjb3VudElkUG9pbnQiOjY2MiwibmJmIjoxNzI4NjE0MzA4LCJjYklkIjoiODQyNjg5ZmItNmFhNS00MDljLWEzNTMtMDA2YmY2ODU4NWEwIiwiaXNzIjoiQXN0cmFQYXktRGV2IiwiY2xhaW0iOiJTTkFQIiwiZXhwIjoxNzI5OTEwMzA4LCJpYXQiOjE3Mjg2MTQzMDgsImp0aSI6IjdiOGEwNmQ2LTk4ZTEtNGY4YS1hN2YzLWFiZDYwNDQyMzI5MCJ9.HUIyYEAEGDpR-qmZx6Kp5SBEh2qXA8Qifx9awZGqZ5Z2_znWNY0sCXwDgRyTN4UxmzOeueUoyNXSwnrxk1Y78PaOGAM-0lSTy4hu572PUi5_L48SlYog9vVUlZEK4QwA8Em7HcD4SE_xq3LfDLHHjdmHQ-shE0xMSPLFZmiPOzGxoxqw34C8R7XYbrqnx3X6kc5G39muQy2lBejeC73XEkCEXoJWKHi6YC_aM5FSlyP1UQvcjl8JG1HfS0MrTqT1qNItbyeSwi7-KAK3c2MZu7X88M413Ti0WbQeHTUT4TY54IKjUYW618ihyjgnmaLh_3QsX2SHoVVGSf50chj32A',
+        '1eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIyNTAwMDU0NiIsImFjY291bnRJZCI6MjExOSwiYWNjb3VudElkUG9pbnQiOjY2MiwibmJmIjoxNzMyNjk4NzI5LCJjYklkIjoiODQyNjg5ZmItNmFhNS00MDljLWEzNTMtMDA2YmY2ODU4NWEwIiwiaXNzIjoiQXN0cmFQYXktRGV2IiwiY2xhaW0iOiJTTkFQIiwiZXhwIjoxNzMzOTk0NzI5LCJpYXQiOjE3MzI2OTg3MjksImp0aSI6IjI4Zjk4ZGQ5LTljZWItNDNjOC1iZDFmLTMyYmRkNzc2M2RjMiJ9.CQIfCBTetGDfISoe38X3TpwsY8XAD0ZAkyaX2JfGlcRUeg2ZAoOm6k7p4DX_uvbzK_6Oo5bXKywA01ibGjTqPpR_ouHSpLRvrY-YrOWlUgzFMa-E8Nzi_PMNHeQhLM_eaCRwtJdY3ERsyNSiAgGQRRfCCD-v1gZgPylHQtB06xnejpYmkZIerOJe0bdt_DfKXi_SCi8gZ9bZ41hr0xZv2tu8TcMJtvAUaXuxWbx4_bWPYJNUh4ytBdQtA6YJWjXWw7pdjhUVkUhd5fAXmSEkHj6Xg3-fEDEoPLb3VqtKJ8IqA6glHG0S1Km1w9jgbQRjxJTyM0aSRxZh3xUVPBWTtw',
       sdkToken: 'XTOKEN',
       environment: 'UAT',
       isSnap: true,
-      refreshToken: '123',
+      refreshToken: '538ae165-c83f-49dd-948b-b87e29da4703',
     };
 
     QrisSdk.initialize(config);
@@ -42,6 +42,10 @@ const App = () => {
 
     QrisSdk.onTransactionCanceled(() => {
       Alert.alert('Transaction Canceled');
+    });
+
+    QrisSdk.onCompleteTransactionHistory((data) => {
+      Alert.alert('Transaction onCompleteTransaction', JSON.stringify(data));
     });
 
     return () => {
