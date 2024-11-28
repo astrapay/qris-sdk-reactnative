@@ -1,6 +1,6 @@
 {
   "name": "@astrapay/qris-react-native",
-  "version": "1.0.4-rc.3",
+  "version": "1.0.4-rc.4",
   "description": "Desc",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -192,8 +192,7 @@
     },
     "android": {
       "javaPackageName": "com.qrissdkreactnative"
-    },
-    "includesGeneratedCode": true
+    }
   },
   "create-react-native-library": {
     "type": "module-mixed",
