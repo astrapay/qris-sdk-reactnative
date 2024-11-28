@@ -4,7 +4,11 @@ import {
   NativeModules,
   Platform,
 } from 'react-native';
-import type { QrisSdkConfiguration } from './QrisSdkTypes';
+import type {
+  QrisSdkConfiguration,
+  QrisTransactionHistorySummaryAndroid,
+  QrisTransactionHistorySummaryIos,
+} from './QrisSdkTypes';
 
 const LINKING_ERROR =
   `The package 'astrapay-qris-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -42,6 +46,7 @@ class QrisSdk {
       await NativeModules.AstraPayQrisReactNative.initializeQris(
         config.authToken,
         config.sdkToken,
+        config.refreshToken,
         config.environment,
         config.isSnap
       );
@@ -80,6 +85,12 @@ class QrisSdk {
     eventEmitter.addListener('onShowTransactionHistory', callback);
   }
 
+  static onCompleteTransactionHistory(
+    callback: (summary: QrisTransactionHistorySummary) => void
+  ): void {
+    eventEmitter.addListener('onCompleteTransactionHistory', callback);
+  }
+
   static removeListener() {
     eventEmitter.removeAllListeners('onTransactionComplete');
     eventEmitter.removeAllListeners('onTransactionFailed');
@@ -87,8 +98,17 @@ class QrisSdk {
     eventEmitter.removeAllListeners('onTransactionCanceled');
     eventEmitter.removeAllListeners('onTransactionProcessing');
     eventEmitter.removeAllListeners('onShowTransactionHistory');
+    eventEmitter.removeAllListeners('onCompleteTransactionHistory');
   }
 }
 
-export type { QrisSdkConfiguration };
+type QrisTransactionHistorySummary = Platform['OS'] extends 'android'
+  ? QrisTransactionHistorySummaryAndroid
+  : QrisTransactionHistorySummaryIos;
+
+export type {
+  QrisSdkConfiguration,
+  QrisTransactionHistorySummaryIos,
+  QrisTransactionHistorySummaryAndroid,
+};
 export default QrisSdk;

@@ -15,15 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/astrapay/qris-sdk-reactnative.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
-  s.dependency "astrapay-qris", '1.0.0'
-
-
-
-  s.dependency 'MoEngage-iOS-SDK' , '~> 9.16.2'
-  s.dependency 'MoEngageGeofence','~>5.15.0'
-  s.dependency 'MoEngageRichNotification','~>7.15.0'
-  s.dependency 'MoEngageInApp','~> 4.15.0'
-  s.dependency 'MoEngageInbox','~>2.15.0'
+  s.dependency "astrapay-qris", '1.0.6'
 
   s.ios.deployment_target     = '11.0'
 

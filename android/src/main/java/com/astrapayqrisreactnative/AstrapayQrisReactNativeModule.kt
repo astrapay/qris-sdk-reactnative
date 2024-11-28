@@ -3,6 +3,8 @@ package com.astrapayqrisreactnative
 import com.astrapay.qris.sdk.AstraPayQris
 import com.astrapay.qris.sdk.QRConfiguration
 import com.astrapay.qris.sdk.QrisTransactionListener
+import com.astrapay.qris.sdk.internal.data.models.TransactionHistoryResult
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -18,13 +20,14 @@ class AstrapayQrisReactNativeModule(private val reactContext: ReactApplicationCo
   }
 
   @ReactMethod
-  fun initializeQris(authToken: String, sdkToken: String, environment: String, isSnap: Boolean, promise: Promise) {
+  fun initializeQris(authToken: String, sdkToken: String, refreshToken: String, environment: String, isSnap: Boolean, promise: Promise) {
     try {
       val configuration = QRConfiguration.Builder(
         authToken = authToken,
         sdkToken = sdkToken,
         environment = environment,
-        isSnap = isSnap
+        isSnap = isSnap,
+        xRefreshToken = refreshToken
       )
         .setEventListener(this)
         .build()
@@ -53,11 +56,26 @@ class AstrapayQrisReactNativeModule(private val reactContext: ReactApplicationCo
     // Keep: Required for RN built in Event Emitter Calls.
   }
 
-  override fun onTransactionComplete() {
-    sendEvent("onTransactionComplete", null)
+  private fun TransactionHistoryResult.toWritableMap(): WritableMap {
+    return Arguments.createMap().apply {
+      putString("transactionAt", transactionAt)
+      putString("status", status)
+      putString("transactionNumber", transactionNumber)
+      putString("referenceNumber", referenceNumber)
+      putString("merchantName", merchantName)
+      putString("merchantCity", merchantCity)
+      putString("discount", discount)
+      putString("amount", amount)
+      putString("totalAmount", totalAmount)
+      putString("refMerchantId", refMerchantId)
+    }
   }
 
-  override fun onTransactionFailed() {
+  override fun onTransactionComplete(transactionHistoryResult: TransactionHistoryResult) {
+    sendEvent("onCompleteTransactionHistory", transactionHistoryResult.toWritableMap())
+  }
+
+  override fun onTransactionFailed(transactionHistoryResult: TransactionHistoryResult?) {
     sendEvent("onTransactionFailed", null)
   }
 
@@ -69,7 +87,7 @@ class AstrapayQrisReactNativeModule(private val reactContext: ReactApplicationCo
     sendEvent("onTransactionCanceled", null)
   }
 
-  override fun onTransactionProcessing() {
+  override fun onTransactionProcessing(transactionHistoryResult: TransactionHistoryResult) {
     sendEvent("onTransactionProcessing", null)
   }
 

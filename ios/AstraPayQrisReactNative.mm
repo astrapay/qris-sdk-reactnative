@@ -6,6 +6,7 @@
 
 RCT_EXTERN_METHOD(initializeQris:(NSString *)authToken
                   sdkToken:(NSString *)sdkToken
+                  refreshToken:(NSString *)refreshToken
                   environment:(NSString *)environment
                   isSnap:(BOOL)isSnap
                   resolve:(RCTPromiseResolveBlock)resolve

@@ -15,16 +15,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrapay/qris-react-native@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@astrapay/qris-react-native@npm:1.0.2"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: f163cb2573e1acb195e697c79bfb11f93d847dc2516684857bcdd3c6e496397f5599ef60b2e0041f11801db08b086c0ce4f83480635c9354163b0efb73cdd683
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.24.7, @babel/code-frame@npm:^7.25.9, @babel/code-frame@npm:^7.26.0":
   version: 7.26.2
   resolution: "@babel/code-frame@npm:7.26.2"
@@ -3022,7 +3012,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "AstrapayQrisReactNativeExample@workspace:."
   dependencies:
-    "@astrapay/qris-react-native": ^1.0.2
     "@babel/core": ^7.25.2
     "@babel/preset-env": ^7.25.3
     "@babel/runtime": ^7.25.0

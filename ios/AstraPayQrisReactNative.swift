@@ -4,8 +4,8 @@ import AstraPayQrisSdk
 class AstraPayQrisReactNative: RCTEventEmitter {
     var hasListener = false
     
-    @objc(initializeQris:sdkToken:environment:isSnap:resolve:reject:)
-    func initializeQris(authToken: String, sdkToken: String, environment: String, isSnap: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+    @objc(initializeQris:sdkToken:refreshToken:environment:isSnap:resolve:reject:)
+    func initializeQris(authToken: String, sdkToken: String, refreshToken: String, environment: String, isSnap: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
             AstraPayQrisSdk.QRConfigurationSdk.AUTH_TOKEN = authToken
             switch environment {
@@ -21,6 +21,7 @@ class AstraPayQrisReactNative: RCTEventEmitter {
             AstraPayQrisSdk.QRConfigurationSdk.SDK_TOKEN = sdkToken
             AstraPayQrisSdk.QRNewRouter.sharedInstance.delegate = self
             AstraPayQrisSdk.QRConfigurationSdk.isSnap = isSnap
+            AstraPayQrisSdk.QRConfigurationSdk.REFRESH_TOKEN = refreshToken
             resolve("SDK Initialized")
         }
         
@@ -55,11 +56,30 @@ class AstraPayQrisReactNative: RCTEventEmitter {
     }
     
     override func supportedEvents() -> [String]! {
-        return ["onTransactionForbidden", "onTransactionComplete", "onTransactionFailed", "onShowTransactionHistory", "onTransactionProcessing", "onTransactionCanceled"]
+        return ["onTransactionForbidden", "onTransactionComplete", "onTransactionFailed", "onShowTransactionHistory", "onTransactionProcessing", "onTransactionCanceled", "onCompleteTransactionHistory"]
     }
 }
 
 extension AstraPayQrisReactNative: AstraPayQrisSdk.QRProtocolSdk {
+    func transactionHistoryToDictionary(history: QrisTransactionHistorySummary) -> [String: Any] {
+        return [
+            "transactionAt": history.transactionAt ?? "",
+            "status": history.status ?? "",
+            "transactionNumber": history.transactionNumber ?? "",
+            "referenceNumber": history.referenceNumber ?? "",
+            "merchantName": history.merchantName ?? "",
+            "merchantCity": history.merchantCity ?? "",
+            "amount": history.amount ?? "",
+            "discountAmount": history.discountAmount ?? "",
+            "merchantId": history.merchantId ?? ""
+        ]
+    }
+    
+    func onCompleteTransaction(history: AstraPayQrisSdk.QrisTransactionHistorySummary) {
+        let historyDict = transactionHistoryToDictionary(history: history)
+        sendEvent(withName: "onCompleteTransactionHistory", body: historyDict)
+    }
+    
     func onForbidden(viewController: UIViewController) {
         viewController.dismiss(animated: true) {
             self.sendEvent(withName: "onTransactionForbidden", body: [])
