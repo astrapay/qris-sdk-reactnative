@@ -115,7 +115,7 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.astrapay:qris-sdk-android:1.0.2"
+  implementation "com.astrapay:qris-sdk-android:1.0.3"
 }
 
 if (isNewArchitectureEnabled()) {

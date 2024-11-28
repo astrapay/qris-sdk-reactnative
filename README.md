@@ -39,22 +39,11 @@ android {
     }
 }
 ```
-
-### iOS
-
-if you are using new version of react-native, which is you using turbo module, you need to add the following lines at Appdelegate.mm (or Appdelegate.m for older version) file:
-
-```objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  ...
- }
-
- - (BOOL)bridgelessEnabled
-{
- return NO;
-}
+If your app uses New Architecture (v0.76+), this library isn’t supported. Disable it in `gradle.properties` like this:
+```groovy
+newArchEnabled=false
 ```
+### iOS
 Additionally, you need to add permissions for gallery and camera access to your `.plist` file:
 ```xml
 <key>NSPhotoLibraryUsageDescription</key>
@@ -71,6 +60,7 @@ Additionally, you need to add permissions for gallery and camera access to your 
 | `sdkToken`   | `string` | Yes           | SDK token provided by registered client |
 | `environment`   | `string` | Yes        | API environment (UAT for testing or PROD for production) |
 | `isSnap`   | `boolean` | Yes        | Boolean flag to indicate if the client already use Snap |
+| `refreshToken`   | `string` | Yes        | Refresh token provided by Custommer Astrapay |
 
 #### Example
 
@@ -79,7 +69,8 @@ const config: QrisSdkConfiguration = {
   authToken: 'your-auth-token',
   sdkToken: 'your-sdk-token',
   environment: 'UAT', // Use 'PROD' for production
-  isSnap: true
+  isSnap: true,
+  refreshToken: 'your-sdk-token'
 };
 
 QrisSdk.initialize(config);
@@ -109,33 +100,37 @@ The SDK provides several listeners for handling transaction events:
 * onTransactionFailed: Triggered when a transaction fails.
 * onTransactionForbidden: Triggered if the transaction is forbidden.
 * onTransactionCanceled: Triggered if the user cancels the transaction.
+* onCompleteTransactionHistory: Triggered if the user completed the transaction.
 
 ## Example
 
 ```typescript
-import QrisSdk, { QrisSdkConfiguration } from '@astrapay/qris-react-native';
 import { useEffect } from 'react';
 import {
-  Alert,
-  GestureResponderEvent,
-  SafeAreaView,
-  StyleProp,
   StyleSheet,
-  Text,
-  TextStyle,
-  TouchableOpacity,
   View,
-  ViewStyle,
+  Text,
+  SafeAreaView,
+  type GestureResponderEvent,
+  type StyleProp,
+  type ViewStyle,
+  type TextStyle,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 
-const HomeScreen = ({ navigation }) => {
+import type { QrisSdkConfiguration } from '@astrapay/qris-react-native';
+import QrisSdk from '@astrapay/qris-react-native';
+
+const App = () => {
   useEffect(() => {
     const config: QrisSdkConfiguration = {
       authToken:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIyNTAwMDU0NiIsImFjY291bnRJZCI6MjExOSwiYWNjb3VudElkUG9pbnQiOjY2MiwibmJmIjoxNzI4NjE0MzA4LCJjYklkIjoiODQyNjg5ZmItNmFhNS00MDljLWEzNTMtMDA2YmY2ODU4NWEwIiwiaXNzIjoiQXN0cmFQYXktRGV2IiwiY2xhaW0iOiJTTkFQIiwiZXhwIjoxNzI5OTEwMzA4LCJpYXQiOjE3Mjg2MTQzMDgsImp0aSI6IjdiOGEwNmQ2LTk4ZTEtNGY4YS1hN2YzLWFiZDYwNDQyMzI5MCJ9.HUIyYEAEGDpR-qmZx6Kp5SBEh2qXA8Qifx9awZGqZ5Z2_znWNY0sCXwDgRyTN4UxmzOeueUoyNXSwnrxk1Y78PaOGAM-0lSTy4hu572PUi5_L48SlYog9vVUlZEK4QwA8Em7HcD4SE_xq3LfDLHHjdmHQ-shE0xMSPLFZmiPOzGxoxqw34C8R7XYbrqnx3X6kc5G39muQy2lBejeC73XEkCEXoJWKHi6YC_aM5FSlyP1UQvcjl8JG1HfS0MrTqT1qNItbyeSwi7-KAK3c2MZu7X88M413Ti0WbQeHTUT4TY54IKjUYW618ihyjgnmaLh_3QsX2SHoVVGSf50chj32A',
+        'your-token',
       sdkToken: 'XTOKEN',
       environment: 'UAT',
       isSnap: true,
+      refreshToken: 'your-refresh-token',
     };
 
     QrisSdk.initialize(config);
@@ -156,6 +151,10 @@ const HomeScreen = ({ navigation }) => {
       Alert.alert('Transaction Canceled');
     });
 
+    QrisSdk.onCompleteTransactionHistory((data) => {
+      Alert.alert('Transaction onCompleteTransaction', JSON.stringify(data));
+    });
+
     return () => {
       QrisSdk.removeListener();
     };
@@ -167,36 +166,31 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView
       style={{
-    flex: 1,
-      alignItems: 'center',
-      alignContent: 'center',
-      height: '100%',
-  }}
->
-  <View
-    style={{
-    flex: 1,
-      alignItems: 'center',
-      alignContent: 'center',
-      alignSelf: 'center',
-      marginTop: 30,
-  }}
->
-  <Text>HomeScreen</Text>
-  <AppButton
-  title="Navigate to profile"
-  buttonStyle={{ marginTop: 50 }}
-  onPress={() => navigation.navigate('Profile')}
-  />
+        flex: 1,
+        alignItems: 'center',
+        alignContent: 'center',
+        height: '100%',
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          alignContent: 'center',
+          alignSelf: 'center',
+          marginTop: 30,
+        }}
+      >
+        <Text>HomeScreen</Text>
 
-  <AppButton
-  title="Navigate to QRIS"
-  buttonStyle={{ marginTop: 50 }}
-  onPress={handleStartTransaction}
-  />
-  </View>
-  </SafeAreaView>
-);
+        <AppButton
+          title="Navigate to QRIS"
+          buttonStyle={{ marginTop: 50 }}
+          onPress={handleStartTransaction}
+        />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 type AppButtonProps = {
@@ -210,15 +204,15 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   return (
     <TouchableOpacity
       style={StyleSheet.flatten([styles.container, buttonStyle])}
-  onPress={onPress}
-  >
-  <View>
-    <Text style={StyleSheet.flatten([styles.text, textStyle])}>
-    {title}
-    </Text>
-    </View>
+      onPress={onPress}
+    >
+      <View>
+        <Text style={StyleSheet.flatten([styles.text, textStyle])}>
+          {title}
+        </Text>
+      </View>
     </TouchableOpacity>
-);
+  );
 };
 
 const styles = StyleSheet.create({
@@ -234,7 +228,8 @@ const styles = StyleSheet.create({
   text: { color: 'white' },
 });
 
-export default HomeScreen;
+export default App;
+
 
 
 ```

@@ -71,7 +71,6 @@ class QrisSdk {
 
   static onTransactionCanceled(callback: () => void): void {
     eventEmitter.addListener('onTransactionCanceled', callback);
-    console.log('listener called', 'onTransactionCanceled');
   }
 
   static onTransactionProcessing(callback: () => void): void {
