@@ -9,6 +9,7 @@ import type {
   QrisTransactionHistorySummaryAndroid,
   QrisTransactionHistorySummaryIos,
 } from './QrisSdkConfiguration';
+import type { Spec } from './NativeQrisSdkReactnative';
 
 const LINKING_ERROR =
   `The package 'qris-sdk-reactnative' doesn't seem to be linked. Make sure: \n\n` +
@@ -23,7 +24,7 @@ const QrisSdkReactnativeModule = isTurboModuleEnabled
   ? require('./NativeQrisSdkReactnative').default
   : NativeModules.QrisSdkReactnative;
 
-const QrisSdkReactnative = QrisSdkReactnativeModule
+const QrisSdkReactnative: Spec = QrisSdkReactnativeModule
   ? QrisSdkReactnativeModule
   : new Proxy(
       {},
@@ -45,8 +46,16 @@ export const eventEmitter = (function () {
 class QrisSdk {
   static async initialize(config: QrisSdkConfiguration) {
     try {
-      return QrisSdkReactnative.initialize(config);
-    } catch (error) {}
+      return QrisSdkReactnative.initialize(
+        config.authToken,
+        config.sdkToken,
+        config.environment.toString(),
+        config.isSnap,
+        config.refreshToken
+      );
+    } catch (error) {
+      return;
+    }
   }
 
   static async startTransaction() {

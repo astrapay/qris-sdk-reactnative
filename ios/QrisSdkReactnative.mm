@@ -6,19 +6,27 @@ RCT_EXPORT_MODULE()
 // Example method
 // See // https://reactnative.dev/docs/native-modules-ios
 
-RCT_EXPORT_METHOD(initialize:(JS::NativeQrisSdkReactnative::QrisSdkConfigurationSpec &)config resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject) {
-    QRConfigurationSdk.AUTH_TOKEN = config.authToken();
-    if ([config.environment()  isEqual: @"SIT"]) {
+RCT_EXPORT_METHOD(initialize:(NSString *)authToken
+                  sdkToken:(NSString *)sdkToken
+               environment:(NSString *)environment
+                    isSnap:(BOOL)isSnap
+              refreshToken:(NSString *)refreshToken
+                   resolve:(RCTPromiseResolveBlock)resolve
+                    reject:(RCTPromiseRejectBlock)reject) {
+    QRConfigurationSdk.AUTH_TOKEN = authToken;
+    
+    QRConfigurationSdk.SDK_TOKEN = sdkToken;
+    if ([environment  isEqual: @"SIT"]) {
         QRConfigurationSdk.BUILD_MODE = BuildModeSit;
-    } else if([config.environment()  isEqual: @"UAT"]) {
+    } else if([environment  isEqual: @"UAT"]) {
         QRConfigurationSdk.BUILD_MODE = BuildModeUat;
     } else {
         QRConfigurationSdk.BUILD_MODE = BuildModeProd;
     }
-    QRConfigurationSdk.SDK_TOKEN = config.sdkToken();
     QRNewRouter.sharedInstance.delegate = self;
-    QRConfigurationSdk.isSnap = config.isSnap();
-    QRConfigurationSdk.REFRESH_TOKEN = config.refreshToken();
+    QRConfigurationSdk.isSnap = isSnap;
+    QRConfigurationSdk.REFRESH_TOKEN = refreshToken;
+    resolve(@"OK");
 }
 
 RCT_EXPORT_METHOD(start) {
