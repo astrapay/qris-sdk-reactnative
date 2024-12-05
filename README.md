@@ -39,10 +39,6 @@ android {
     }
 }
 ```
-If your app uses New Architecture (v0.76+), this library isn’t supported. Disable it in `gradle.properties` like this:
-```groovy
-newArchEnabled=false
-```
 ### iOS
 Additionally, you need to add permissions for gallery and camera access to your `.plist` file:
 ```xml
@@ -54,13 +50,13 @@ Additionally, you need to add permissions for gallery and camera access to your 
 
 #### QrisSdkConfiguration
 
-| Parameter     | Type     | Required     | Description|
-| :--------     | :------- | :-------     | :----------|
-| `authToken`   | `string` | Yes          | Authentication token provided by Custommer Astrapay |
-| `sdkToken`   | `string` | Yes           | SDK token provided by registered client |
+| Parameter     | Type     | Required     | Description                                              |
+| :--------     | :------- | :-------     |:---------------------------------------------------------|
+| `authToken`   | `string` | Yes          | Authentication token provided by Customer Astrapay       |
+| `sdkToken`   | `string` | Yes           | SDK token provided by registered client                  |
 | `environment`   | `string` | Yes        | API environment (UAT for testing or PROD for production) |
-| `isSnap`   | `boolean` | Yes        | Boolean flag to indicate if the client already use Snap |
-| `refreshToken`   | `string` | Yes        | Refresh token provided by Custommer Astrapay |
+| `isSnap`   | `boolean` | Yes        | Boolean flag to indicate if the client already use Snap  |
+| `refreshToken`   | `string` | Yes        | Refresh token provided by Customer Astrapay              |
 
 #### Example
 

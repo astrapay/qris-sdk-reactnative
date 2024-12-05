@@ -23,14 +23,14 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
   }
 
   @ReactMethod
-  override fun initialize(config: ReadableMap?, promise: Promise?) {
+  override fun initialize(authToken: String?, sdkToken: String?, environment: String?, isSnap: Boolean, refreshToken: String?, promise: Promise?) {
     try {
       val configuration = QRConfiguration.Builder(
-        authToken = config?.getString("authToken") ?: "",
-        sdkToken = config?.getString("sdkToken") ?: "",
-        environment = config?.getString("environment") ?: "",
-        isSnap = config?.getBoolean("isSnap") ?: true,
-        xRefreshToken = config?.getString("refreshToken") ?: "",
+        authToken = authToken ?: "",
+        sdkToken = sdkToken ?: "",
+        environment = environment ?: "",
+        isSnap = isSnap,
+        xRefreshToken = refreshToken ?: "",
       )
         .setEventListener(this)
         .build()
