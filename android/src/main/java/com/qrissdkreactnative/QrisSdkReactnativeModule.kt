@@ -59,25 +59,25 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
     // Keep: Required for RN built in Event Emitter Calls.
   }
 
-  override fun onTransactionComplete(transactionHistoryResult: TransactionHistoryResult) {
-//    sendEvent("onTransactionComplete", transactionHistoryResult.toWritableMap())
-    sendEvent("onCompleteTransactionHistory", transactionHistoryResult.toWritableMap()) // kenapa namanya ini? di ios gini
-  }
-
-  override fun onTransactionFailed(transactionHistoryResult: TransactionHistoryResult?) {
-    sendEvent("onTransactionFailed", null)
-  }
-
   override fun onTransactionForbidden() {
     sendEvent("onTransactionForbidden", null)
+  }
+
+  override fun onTransactionProcessing() {
+    sendEvent("onTransactionProcessing", null)
   }
 
   override fun onTransactionCanceled() {
     sendEvent("onTransactionCanceled", null)
   }
 
-  override fun onTransactionProcessing(transactionHistoryResult: TransactionHistoryResult) {
-    sendEvent("onTransactionProcessing", null)
+  override fun onTransactionComplete() {
+//    sendEvent("onTransactionComplete", transactionHistoryResult.toWritableMap())
+    sendEvent("onCompleteTransactionHistory", null) // kenapa namanya ini? di ios gini
+  }
+
+  override fun onTransactionFailed() {
+    sendEvent("onTransactionFailed", null)
   }
 
   private fun TransactionHistoryResult.toWritableMap(): WritableMap {
@@ -91,8 +91,13 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
       putString("discount", discount)
       putString("amount", amount)
       putString("totalAmount", totalAmount)
-      putString("refMerchantId", refMerchantId)
+      putString("refMerchantId", merchantId)
     }
+  }
+
+  override fun onCompleteTransactionHistory(transactionHistoryResult: TransactionHistoryResult?) {
+    TODO("Not yet implemented")
+    sendEvent("onCompleteTransactionHistory", transactionHistoryResult?.toWritableMap())
   }
 
   override fun onShowTransactionHistory() {
