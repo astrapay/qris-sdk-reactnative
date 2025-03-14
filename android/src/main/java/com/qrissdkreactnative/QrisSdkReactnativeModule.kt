@@ -96,7 +96,6 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
   }
 
   override fun onCompleteTransactionHistory(transactionHistoryResult: TransactionHistoryResult?) {
-    TODO("Not yet implemented")
     sendEvent("onCompleteTransactionHistory", transactionHistoryResult?.toWritableMap())
   }
 
