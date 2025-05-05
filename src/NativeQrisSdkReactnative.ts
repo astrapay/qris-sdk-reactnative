@@ -10,6 +10,7 @@ export interface Spec extends TurboModule {
     refreshToken: string
   ): Promise<string>;
   start(): void;
+  checkTransactionStatus(id: string): void;
   addListener: (eventType: string) => void;
   removeListeners: (count: number) => void;
 }

@@ -66,6 +66,14 @@ class QrisSdk {
     }
   }
 
+  static async checkTransactionStatus(id: string) {
+    try {
+      return QrisSdkReactnative.checkTransactionStatus(id);
+    } catch (error) {
+      console.error('Check status Error:', error);
+    }
+  }
+
   static onTransactionComplete(callback: () => void): void {
     eventEmitter.addListener('onTransactionComplete', callback);
   }
@@ -98,6 +106,12 @@ class QrisSdk {
     callback: (summary: QrisTransactionHistorySummary) => void
   ): void {
     eventEmitter.addListener('onCompleteTransactionHistory', callback);
+  }
+
+  static onCheckTransactionStatus(
+    callback: (summary: QrisTransactionHistorySummary) => void
+  ): void {
+    eventEmitter.addListener('onCheckTransactionStatus', callback);
   }
 
   static removeListener() {

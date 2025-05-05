@@ -47,6 +47,10 @@ const App = () => {
       Alert.alert('Transaction onCompleteTransaction', JSON.stringify(data));
     });
 
+    QrisSdk.onCheckTransactionStatus((data) => {
+      Alert.alert('Transaction onCheckTransactionStatus', JSON.stringify(data));
+    });
+
     return () => {
       QrisSdk.removeListener();
     };
@@ -54,6 +58,10 @@ const App = () => {
 
   const handleStartTransaction = () => {
     QrisSdk.startTransaction();
+  };
+  const handleCheckTransactionStatus = (id: string) => {
+    Alert.alert('Check Transaction Status', id);
+    QrisSdk.checkTransactionStatus(id);
   };
   return (
     <SafeAreaView
@@ -79,6 +87,11 @@ const App = () => {
           title="Navigate to QRIS"
           buttonStyle={{ marginTop: 50 }}
           onPress={handleStartTransaction}
+        />
+        <AppButton
+          title="Check Transaction Status"
+          buttonStyle={{ marginTop: 50 }}
+          onPress={() => handleCheckTransactionStatus('4708')}
         />
       </View>
     </SafeAreaView>
