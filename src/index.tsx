@@ -24,16 +24,16 @@ const QrisSdkReactnativeModule = isTurboModuleEnabled
   ? require('./NativeQrisSdkReactnative').default
   : NativeModules.QrisSdkReactnative;
 
-const QrisSdkReactnative: Spec = QrisSdkReactnativeModule
-  ? QrisSdkReactnativeModule
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+const QrisSdkReactnative: Spec =
+  QrisSdkReactnativeModule ??
+  new Proxy(
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 export const eventEmitter = (function () {
   if (Platform.OS === 'android') {
     return DeviceEventEmitter;
@@ -54,6 +54,7 @@ class QrisSdk {
         config.refreshToken
       );
     } catch (error) {
+      console.error('Error initializing the sdk', error);
       return;
     }
   }
@@ -63,6 +64,14 @@ class QrisSdk {
       return QrisSdkReactnative.start();
     } catch (error) {
       console.error('Transaction Start Error:', error);
+    }
+  }
+
+  static async checkTransactionStatus(id: string) {
+    try {
+      return QrisSdkReactnative.checkTransactionStatus(id);
+    } catch (error) {
+      console.error('Check status Error:', error);
     }
   }
 
@@ -98,6 +107,12 @@ class QrisSdk {
     callback: (summary: QrisTransactionHistorySummary) => void
   ): void {
     eventEmitter.addListener('onCompleteTransactionHistory', callback);
+  }
+
+  static onCheckTransactionStatus(
+    callback: (summary: QrisTransactionHistorySummary) => void
+  ): void {
+    eventEmitter.addListener('onCheckTransactionStatus', callback);
   }
 
   static removeListener() {
