@@ -24,16 +24,16 @@ const QrisSdkReactnativeModule = isTurboModuleEnabled
   ? require('./NativeQrisSdkReactnative').default
   : NativeModules.QrisSdkReactnative;
 
-const QrisSdkReactnative: Spec = QrisSdkReactnativeModule
-  ? QrisSdkReactnativeModule
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+const QrisSdkReactnative: Spec =
+  QrisSdkReactnativeModule ??
+  new Proxy(
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 export const eventEmitter = (function () {
   if (Platform.OS === 'android') {
     return DeviceEventEmitter;
@@ -54,6 +54,7 @@ class QrisSdk {
         config.refreshToken
       );
     } catch (error) {
+      console.error('Error initializing the sdk', error);
       return;
     }
   }
