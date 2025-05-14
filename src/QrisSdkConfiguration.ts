@@ -16,6 +16,7 @@ export interface QrisTransactionHistorySummaryIos {
   amount?: string;
   discountAmount?: string;
   merchantId?: string;
+  transactionId?: string;
 }
 
 export interface QrisTransactionHistorySummaryAndroid {

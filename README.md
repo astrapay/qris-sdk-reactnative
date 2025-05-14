@@ -97,6 +97,7 @@ The SDK provides several listeners for handling transaction events:
 * onTransactionForbidden: Triggered if the transaction is forbidden.
 * onTransactionCanceled: Triggered if the user cancels the transaction.
 * onCompleteTransactionHistory: Triggered if the user completed the transaction.
+* onCheckTransactionStatus: Triggered if the user wants to check the transaction status.
 
 ## Example
 
@@ -121,12 +122,11 @@ import QrisSdk from '@astrapay/qris-react-native';
 const App = () => {
   useEffect(() => {
     const config: QrisSdkConfiguration = {
-      authToken:
-        'your-token',
+      authToken: 'auth-token',
       sdkToken: 'XTOKEN',
       environment: 'UAT',
       isSnap: true,
-      refreshToken: 'your-refresh-token',
+      refreshToken: 'refresh-token',
     };
 
     QrisSdk.initialize(config);
@@ -151,6 +151,10 @@ const App = () => {
       Alert.alert('Transaction onCompleteTransaction', JSON.stringify(data));
     });
 
+    QrisSdk.onCheckTransactionStatus((data) => {
+      Alert.alert('Transaction onCheckTransactionStatus', JSON.stringify(data));
+    });
+
     return () => {
       QrisSdk.removeListener();
     };
@@ -159,34 +163,43 @@ const App = () => {
   const handleStartTransaction = () => {
     QrisSdk.startTransaction();
   };
+  const handleCheckTransactionStatus = (id: string) => {
+    Alert.alert('Check Transaction Status', id);
+    QrisSdk.checkTransactionStatus(id);
+  };
   return (
     <SafeAreaView
       style={{
-        flex: 1,
-        alignItems: 'center',
-        alignContent: 'center',
-        height: '100%',
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          alignContent: 'center',
-          alignSelf: 'center',
-          marginTop: 30,
-        }}
-      >
-        <Text>HomeScreen</Text>
+    flex: 1,
+      alignItems: 'center',
+      alignContent: 'center',
+      height: '100%',
+  }}
+>
+  <View
+    style={{
+    flex: 1,
+      alignItems: 'center',
+      alignContent: 'center',
+      alignSelf: 'center',
+      marginTop: 30,
+  }}
+>
+  <Text>HomeScreen</Text>
 
-        <AppButton
-          title="Navigate to QRIS"
-          buttonStyle={{ marginTop: 50 }}
-          onPress={handleStartTransaction}
-        />
-      </View>
-    </SafeAreaView>
-  );
+  <AppButton
+  title="Navigate to QRIS"
+  buttonStyle={{ marginTop: 50 }}
+  onPress={handleStartTransaction}
+  />
+  <AppButton
+  title="Check Transaction Status"
+  buttonStyle={{ marginTop: 50 }}
+  onPress={() => handleCheckTransactionStatus('4708')}
+  />
+  </View>
+  </SafeAreaView>
+);
 };
 
 type AppButtonProps = {
@@ -200,15 +213,15 @@ const AppButton: React.FC<AppButtonProps> = (props) => {
   return (
     <TouchableOpacity
       style={StyleSheet.flatten([styles.container, buttonStyle])}
-      onPress={onPress}
-    >
-      <View>
-        <Text style={StyleSheet.flatten([styles.text, textStyle])}>
-          {title}
-        </Text>
-      </View>
+  onPress={onPress}
+  >
+  <View>
+    <Text style={StyleSheet.flatten([styles.text, textStyle])}>
+    {title}
+    </Text>
+    </View>
     </TouchableOpacity>
-  );
+);
 };
 
 const styles = StyleSheet.create({

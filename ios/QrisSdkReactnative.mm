@@ -105,7 +105,8 @@ RCT_EXPORT_METHOD(checkTransactionStatus:(NSString *)id)
     @"merchantCity": history.merchantCity ?: @"",
     @"amount": history.amount ?: @"",
     @"discountAmount": history.discountAmount ?: @"",
-    @"merchantId": history.merchantId ?: @""
+    @"merchantId": history.merchantId ?: @"",
+    @"transactionId": history.transactionId ?: @""
   };
 }
 
