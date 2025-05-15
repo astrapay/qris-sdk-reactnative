@@ -44,11 +44,11 @@ const App = () => {
     });
 
     QrisSdk.onCompleteTransactionHistory((data) => {
-      Alert.alert('Transaction onCompleteTransaction', JSON.stringify(data));
+      Alert.alert('onCompleteTransactionHistory', JSON.stringify(data));
     });
 
     QrisSdk.onCheckTransactionStatus((data) => {
-      Alert.alert('Transaction onCheckTransactionStatus', JSON.stringify(data));
+      Alert.alert('onCheckTransactionStatus', JSON.stringify(data));
     });
 
     return () => {

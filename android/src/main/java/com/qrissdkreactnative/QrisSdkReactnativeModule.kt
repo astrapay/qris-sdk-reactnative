@@ -49,6 +49,12 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
     }
   }
 
+  override fun checkTransactionStatus(id: String?) {
+    currentActivity?.let {
+      AstraPayQris.getInstance().checkStatus(it, id!!)
+    }
+  }
+
   @ReactMethod
   override fun addListener(type: String?) {
     // Keep: Required for RN built in Event Emitter Calls.
@@ -72,8 +78,7 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
   }
 
   override fun onTransactionComplete() {
-//    sendEvent("onTransactionComplete", transactionHistoryResult.toWritableMap())
-    sendEvent("onCompleteTransactionHistory", null) // kenapa namanya ini? di ios gini
+    sendEvent("onTransactionComplete", null)
   }
 
   override fun onTransactionFailed() {
@@ -82,6 +87,7 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
 
   private fun TransactionHistoryResult.toWritableMap(): WritableMap {
     return Arguments.createMap().apply {
+      putString("transactionId", transactionId)
       putString("transactionAt", transactionAt)
       putString("status", status)
       putString("transactionNumber", transactionNumber)
@@ -93,6 +99,10 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
       putString("totalAmount", totalAmount)
       putString("refMerchantId", merchantId)
     }
+  }
+
+  override fun checkStatusTransaction(transactionDetail: TransactionHistoryResult?) {
+    sendEvent("onCompleteTransactionHistory", transactionDetail?.toWritableMap())
   }
 
   override fun onCompleteTransactionHistory(transactionHistoryResult: TransactionHistoryResult?) {
