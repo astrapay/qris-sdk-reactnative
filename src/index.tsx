@@ -123,6 +123,7 @@ class QrisSdk {
     eventEmitter.removeAllListeners('onTransactionProcessing');
     eventEmitter.removeAllListeners('onShowTransactionHistory');
     eventEmitter.removeAllListeners('onCompleteTransactionHistory');
+    eventEmitter.removeAllListeners('onCheckTransactionStatus');
   }
 }
 

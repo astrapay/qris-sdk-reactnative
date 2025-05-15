@@ -20,6 +20,7 @@ export interface QrisTransactionHistorySummaryIos {
 }
 
 export interface QrisTransactionHistorySummaryAndroid {
+  transactionId?: string;
   transactionAt?: string;
   status?: string;
   transactionNumber?: string;
