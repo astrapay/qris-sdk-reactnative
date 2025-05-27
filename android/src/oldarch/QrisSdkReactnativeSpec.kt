@@ -13,6 +13,8 @@ abstract class QrisSdkReactnativeSpec internal constructor(context: ReactApplica
 
   abstract fun start()
 
+  abstract fun checkTransactionStatus(id: String?)
+
   abstract fun addListener(eventType: String?)
 
   abstract fun removeListeners(count: Double)
