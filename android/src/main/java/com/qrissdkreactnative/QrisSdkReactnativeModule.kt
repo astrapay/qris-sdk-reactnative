@@ -49,6 +49,7 @@ class QrisSdkReactnativeModule internal constructor(val context: ReactApplicatio
     }
   }
 
+  @ReactMethod
   override fun checkTransactionStatus(id: String?) {
     currentActivity?.let {
       AstraPayQris.getInstance().checkStatus(it, id!!)
