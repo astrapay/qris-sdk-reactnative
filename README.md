@@ -99,6 +99,41 @@ The SDK provides several listeners for handling transaction events:
 * onCompleteTransactionHistory: Triggered if the user completed the transaction.
 * onCheckTransactionStatus: Triggered if the user wants to check the transaction status.
 
+## Transaction Callback (History and Transaction Check Status)
+
+```typescript
+export interface QrisTransactionHistorySummaryAndroid {
+  transactionId?: string;
+  transactionAt?: string;
+  status?: string;
+  transactionNumber?: string;
+  referenceNumber?: string;
+  merchantName?: string;
+  merchantCity?: string;
+  amount?: string;
+  discount?: string;
+  totalAmount?: string;
+  ?: string;
+}
+```
+
+### Descriptions of Transaction Callback (History and Transaction Check Status)
+| Field     | Type     | Description                                              |
+| :--------     | :-------     |:---------------------------------------------------------|
+| `transactionId`   | `string`| Transaction id from astrapay (used for checking status)|
+| `transactionAt`   | `string` | Time of transaction is made in yyyy-MM-dd'T'HH:mm:ss.SSS'Z |
+| `status`   | `string` | Status of the transaction SUCCESS, PROCESSING, VOID |
+| `transactionNumber`   | `string` | Transaction number of a transaction  |
+| `referenceNumber`   | `string`| Reference number of a transaction |
+| `merchantName`   | `string` | The name of the Merchant  |
+| `merchantCity`   | `string`| The city location of the Merchant |
+| `amount`   | `string` | Transaction amount in rupiahs  |
+| `discount`   | `string`| Discount amount in rupiahs |
+| `amount`   | `string` | Transaction amount in rupiahs  |
+| `discount`   | `string`| Discount amount in rupiahs |
+| `totalAmount`   | `string` | Total Amount of transaction  |
+| `refMerchantId`   | `string`| MID from the acquiring merchant |
+
 ## Example
 
 ```typescript
