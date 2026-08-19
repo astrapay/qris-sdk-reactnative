@@ -18,11 +18,12 @@ import QrisSdk from '@astrapay/qris-react-native';
 const App = () => {
   useEffect(() => {
     const config: QrisSdkConfiguration = {
-      authToken: 'auth-token',
-      sdkToken: 'XTOKEN',
+      authToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdWIiOiIxOTk5NDkiLCJ1c2VySWRNZXJjaGFudCI6MCwiYWNjb3VudElkU2V0dGxlbWVudCI6MCwiaXNzIjoiQXN0cmFQYXktRGV2IiwiYWNjb3VudElkIjo1MzksImFjY291bnRJZFBvaW50IjowLCJuYmYiOjE3ODcxMjM4ODEsImNiSWQiOiJhZDRiNGNmMy1jZjc2LTRjN2QtOGNhMy1jY2Q5NTY0NmUxZjEiLCJjbGFpbSI6IlNOQVAiLCJjcmVkZW50aWFsSWQiOjAsImV4cCI6MTc4ODQxOTg4MSwiaWF0IjoxNzg3MTIzODgxLCJqdGkiOiIxOGJkYWE0NC01MjNiLTRlYTMtOWQzNS1lMTkzYTRlNTQyYWUifQ.Dgb2LZsDE5Vp87qPGQ16hKr5Wt_531wQqFlHj2myXYPxGL2QL0oIUNj1ceQ6M1Szba5676ZWnixKSjZTZ0hXVN7COn2OUmjowDeVfIlI0NBmvA_OPjPmsabCbJv44-UG40dJQxdFGWtKJLkQuxsX4Di_nLxDwNt-p2ROO3dJaI8VwBUtwUJPEQliA-1Oy-EqI7-DqHBR4QEEtLYRLHnxrMrXIK57i-jVwn_CMh5aazK5mLsUQIrmlYXYxRso7eUZCqoslmCKhBZIzRIvAsJUfjlNSGJoWDz-L13vGEthbxftiFhTKcYuZGX8Rkd7ndaCuPWeedPqokDun1LK4_JZ6A',
+      sdkToken: 'eee0cb6a-2480-48d5-bc78-989ccfdd99d4',
       environment: 'UAT',
       isSnap: true,
-      refreshToken: 'refresh-token',
+      refreshToken: '7502dbd5-17f1-4537-bc2a-37afd8594bfc',
     };
 
     QrisSdk.initialize(config);
