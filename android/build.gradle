@@ -127,3 +127,7 @@ if (isNewArchitectureEnabled()) {
     codegenJavaPackageName = "com.qrissdkreactnative"
   }
 }
+
+dependencyLocking {
+  lockAllConfigurations()
+}
